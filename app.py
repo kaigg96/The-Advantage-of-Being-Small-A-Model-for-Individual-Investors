@@ -17,23 +17,7 @@ app.config['SECRET_KEY'] = 'asecretkey'
 closing_price_data = pd.read_hdf('closing_price_data.h5', key='closing_price_data')
 high_price_data = pd.read_hdf('high_price_data.h5', key='high_price_data')
 low_price_data = pd.read_hdf('low_price_data.h5', key='low_price_data')
-
-market_cap_dict = {}
-
-for ticker in tickers:
-    try:
-        mcap = yf.Ticker(ticker).fast_info['marketCap']
-        market_cap_dict.update({ticker:mcap})
-    except: KeyError #ignore tickers with no market cap available
-
-# create dicts of tickers for each market cap
-small_caps_dict = {k: v for k, v in market_cap_dict.items() if v < 2_000_000_000}
-
-# retrieve the tickers (keys) for each dict
-small_cap_tickers = small_caps_dict.keys()
-
-# filter the original price data for only the tickers with that market cap
-small_cap_price_data = closing_price_data[small_cap_tickers]
+small_cap_price_data = pd.read_hdf('small_cap_price_data.h5', key='small_cap_price_data')
 
 def min_var_filter(price_data, model_start_date, var=0.1, period=200):
     """
