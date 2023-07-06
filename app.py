@@ -14,60 +14,9 @@ app.config['SECRET_KEY'] = 'asecretkey'
 
 # 3. define a prediction function
 # 3a. load price data
-start_date = datetime.date(2023,1,1)
-end_date = datetime.date.today()
-tickers = pd.read_csv('tickers.csv')
-tickers = tickers.rename(columns = {"A": "Ticker"})
-tickers = tickers["Ticker"]
-
-closing_price_data = pd.DataFrame()
-high_price_data = pd.DataFrame()
-low_price_data = pd.DataFrame()
-
-downloaded_tickers = []
-
-for ticker in tickers:
-    data = yf.download(ticker, start=start_date, end=end_date, interval="1d", progress=False)
-        
-    closing_price_data = pd.concat([closing_price_data, data['Close']], axis=1)
-    high_price_data = pd.concat([high_price_data, data['High']], axis=1)
-    low_price_data = pd.concat([low_price_data, data['Low']], axis=1)
-    
-closing_price_data.columns = tickers.values
-high_price_data.columns = tickers.values
-low_price_data.columns = tickers.values
-
-closing_price_data.to_csv('/Users/kaigroden-gilchrist/Downloads/Personal_Project/SuccessiveSmallGains/' + 
-                          'Equity-market-analysis/closing_price_data.csv', index=True, mode='w')
-
-high_price_data.to_csv('/Users/kaigroden-gilchrist/Downloads/Personal_Project/SuccessiveSmallGains/' + 
-                          'Equity-market-analysis/high_price_data.csv', index=True, mode='w')
-
-low_price_data.to_csv('/Users/kaigroden-gilchrist/Downloads/Personal_Project/SuccessiveSmallGains/' + 
-                          'Equity-market-analysis/low_price_data.csv', index=True, mode='w')
-
-#since csv can't store axis, need to reset it
-
-def load_price_csvs(path):
-    """
-    Load and set index of the given CSV.
-    Meant for use on closing, high, and low price data files.
-    """
-
-    price_data = pd.read_csv(path)
-    price_data = price_data.set_index("Unnamed: 0")
-    price_data = price_data.rename_axis("Date")
-    
-    return price_data
-
-high_price_data = load_price_csvs('/Users/kaigroden-gilchrist/Downloads/Personal_Project/SuccessiveSmallGains/Equity-ma' \
-                      'rket-analysis/high_price_data.csv')
-
-low_price_data = load_price_csvs('/Users/kaigroden-gilchrist/Downloads/Personal_Project/SuccessiveSmallGains/Equity-ma' \
-                      'rket-analysis/low_price_data.csv')
-
-closing_price_data = load_price_csvs('/Users/kaigroden-gilchrist/Downloads/Personal_Project/SuccessiveSmallGains/Equity-ma' \
-                      'rket-analysis/closing_price_data.csv')
+closing_price_data = pd.read_hdf('closing_price_data.h5', key='closing_price_data')
+high_price_data = pd.read_hdf('high_price_data.h5', key='high_price_data')
+low_price_data = pd.read_hdf('low_price_data.h5', key='low_price_data')
 
 market_cap_dict = {}
 
