@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 import datetime
+import tables
 
 # 2. create an instance of the Flask class
 app = Flask(__name__)
