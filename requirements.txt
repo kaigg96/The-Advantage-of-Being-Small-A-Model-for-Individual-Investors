@@ -8,6 +8,7 @@ seaborn
 joblib
 lightgbm
 gunicorn
+tables
 
 certifi
 click
