@@ -53,7 +53,7 @@ def index():
 def prediction():
     content = {}
     content['text'] = str(session['Stock'])
-    results = return_prediction(model, content['text'])
+    results = return_prediction(content['text'], model)
     return render_template('prediction.html', results=results)
 
 # 8. allows us to run flask using $ python app.py
