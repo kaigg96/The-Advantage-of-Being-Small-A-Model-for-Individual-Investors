@@ -239,7 +239,7 @@ def index():
 
     # Validate the form
     if form.validate_on_submit():
-        session['Stock'] = form.text.data
+        session['Moment'] = form.text.data
         return redirect(url_for("prediction"))
 
     return render_template('home.html', form=form)
@@ -248,7 +248,7 @@ def index():
 @app.route('/prediction')
 def prediction():
     content = {}
-    content['text'] = str(session['Stock'])
+    content['text'] = str(session['Moment'])
     results = return_prediction(content['text'], model)
     return render_template('prediction.html', results=results)
 
