@@ -1,4 +1,4 @@
-# 1. Imports
+=# 1. Imports
 from flask import Flask, render_template, session, url_for, redirect
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField
@@ -254,4 +254,4 @@ def prediction():
 
 # 8. allows us to run flask using $ python app.py
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False)
