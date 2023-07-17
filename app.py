@@ -16,6 +16,7 @@ app.config['SECRET_KEY'] = 'asecretkey'
 # 3. define a prediction function
 # 3a. load data
 small_cap_price_data = pd.read_hdf('small_cap_price_data.h5', key='small_cap_price_data')
+closing_price_data = pd.read_hdf('closing_price_data.h5', key='closing_price_data')
 
 def min_var_filter(price_data, model_start_date, var=0.1, period=200):
     
@@ -226,7 +227,6 @@ model = joblib.load('stock_predictor.joblib')
 
 # 5. create a WTForm Class
 class PredictForm(FlaskForm):
-    print('predictform')
     text = StringField("Stock")
     submit = SubmitField("Predict")
 
