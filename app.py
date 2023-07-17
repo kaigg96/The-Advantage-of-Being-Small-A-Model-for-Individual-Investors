@@ -1,4 +1,4 @@
-=# 1. Imports
+# 1. Imports
 from flask import Flask, render_template, session, url_for, redirect
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField
