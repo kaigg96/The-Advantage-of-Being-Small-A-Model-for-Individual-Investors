@@ -228,7 +228,7 @@ model = joblib.load('stock_predictor.joblib')
 
 # 5. create a WTForm Class
 class PredictForm(FlaskForm):
-    text = StringField("Stock")
+    text = StringField("Moment")
     submit = SubmitField("Predict")
 
 # 6. set up our home page
