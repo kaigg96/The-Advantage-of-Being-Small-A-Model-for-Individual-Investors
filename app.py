@@ -8,6 +8,7 @@ import pandas as pd
 import yfinance as yf
 import datetime
 import tables
+import pickle
 
 # 2. create an instance of the Flask class
 app = Flask(__name__)
