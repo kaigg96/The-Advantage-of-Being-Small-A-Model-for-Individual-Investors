@@ -9,7 +9,6 @@ joblib
 lightgbm
 gunicorn
 tables
-pickle
 
 certifi
 click
