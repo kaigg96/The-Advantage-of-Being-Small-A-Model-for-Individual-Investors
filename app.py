@@ -221,14 +221,15 @@ def return_prediction(test_date, model):
     
     X = list_of_returns_calc(small_cap_price_data, 0.1, test_date, 150)
 
-    return X[model.predict(X)==1][['buy_price', 'sell_price']]
+    return X[model.predict(X)==1][['buy_price', 'sell_price']].reset_index().rename(columns={'index': 'ticker'})
 
 # 4. load our moment predictor model
 model = joblib.load('stock_predictor.joblib')
 
 # 5. create a WTForm Class
 class PredictForm(FlaskForm):
-    text = StringField("Moment")
+    text = StringField("Date:")
+    text2 = StringField("**This may take several minutes**")
     submit = SubmitField("Predict")
 
 # 6. set up our home page
@@ -239,7 +240,7 @@ def index():
 
     # Validate the form
     if form.validate_on_submit():
-        session['Moment'] = form.text.data
+        session['Stock'] = form.text.data
         return redirect(url_for("prediction"))
 
     return render_template('home.html', form=form)
@@ -248,7 +249,7 @@ def index():
 @app.route('/prediction')
 def prediction():
     content = {}
-    content['text'] = str(session['Moment'])
+    content['text'] = str(session['Stock'])
     results = return_prediction(content['text'], model)
     return render_template('prediction.html', results=results)
 
