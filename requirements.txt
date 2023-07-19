@@ -3,11 +3,9 @@ pandas
 yfinance
 datetime
 scikit-learn
-matplotlib
-seaborn
 joblib
-lightgbm
 gunicorn
+tables
 
 certifi
 click
